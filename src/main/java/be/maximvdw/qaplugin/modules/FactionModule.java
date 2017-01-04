@@ -111,8 +111,6 @@ public class FactionModule extends AIModule {
         // Check if the player is standing inside a faction
         if (faction == null) {
             return null;
-        }else if (faction.isDefault()){
-            return null;
         }
 
         // Send a context with faction information
@@ -122,6 +120,8 @@ public class FactionModule extends AIModule {
         context.addParameter("motd", faction.getMotd());
         if (faction.getLeader() != null) {
             context.addParameter("leader", faction.getLeader().getName());
+        }else{
+            return null;
         }
 
         return context;
