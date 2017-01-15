@@ -6,6 +6,7 @@ import be.maximvdw.qaplugin.api.QAPluginAPI;
 import be.maximvdw.qaplugin.api.ai.Context;
 import be.maximvdw.qaplugin.api.ai.Intent;
 import be.maximvdw.qaplugin.api.ai.IntentResponse;
+import be.maximvdw.qaplugin.api.annotations.*;
 import be.maximvdw.qaplugin.api.exceptions.FeatureNotEnabled;
 import com.massivecraft.factions.entity.BoardColl;
 import com.massivecraft.factions.entity.Faction;
@@ -15,11 +16,17 @@ import com.massivecraft.massivecore.ps.PS;
  * FactionModule
  * Created by maxim on 04-Jan-17.
  */
+@ModuleName("faction.info")
+@ModuleAuthor("Maximvdw")
+@ModuleVersion("1.1.0")
+@ModuleDescription("Get information of the faction you are in")
+@ModuleConstraints({
+        @ModuleConstraint(type = ModuleConstraint.ContraintType.PLUGIN, value = "Factions"),
+        @ModuleConstraint(type = ModuleConstraint.ContraintType.PLUGIN_VERSION, value = "2.")
+})
 public class FactionModule extends AIModule {
 
     public FactionModule() {
-        super("faction.info", "Maximvdw", "Get information of the faction you are in");
-
         Intent qName = new Intent("QAPlugin-module-faction.info.name")
                 // Set the required context
                 // The question will only match if that context is found
@@ -120,7 +127,7 @@ public class FactionModule extends AIModule {
         context.addParameter("motd", faction.getMotd());
         if (faction.getLeader() != null) {
             context.addParameter("leader", faction.getLeader().getName());
-        }else{
+        } else {
             return null;
         }
 
